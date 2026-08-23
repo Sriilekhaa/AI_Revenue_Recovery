@@ -1,0 +1,34 @@
+.policies-page { animation: fadeIn 0.3s ease-out; }
+
+.stopping-rules-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-3);
+}
+
+.stopping-rule {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: var(--space-4); background: var(--neutral-50);
+  border-radius: var(--radius-md); border: 1px solid var(--neutral-100);
+}
+
+.rule-label { font-size: 0.75rem; color: var(--neutral-500); font-weight: 500; }
+.rule-value { font-size: 1rem; font-weight: 700; color: var(--neutral-800); font-family: var(--font-mono); }
+
+.policy-rules-list { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.policy-rule {
+  padding: var(--space-4); background: var(--neutral-50);
+  border-radius: var(--radius-md); border: 1px solid var(--neutral-100);
+  transition: all var(--transition-fast);
+}
+
+.policy-rule:hover { border-color: var(--neutral-200); box-shadow: var(--shadow-sm); }
+
+.rule-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: var(--space-2); flex-wrap: wrap; gap: var(--space-2);
+}
+
+.rule-root-causes { font-size: 0.85rem; font-weight: 600; color: var(--neutral-800); text-transform: capitalize; }
+.rule-action-channel { display: flex; gap: var(--space-2); }
+.rule-reasoning { font-size: 0.8rem; color: var(--neutral-600); line-height: 1.5; }

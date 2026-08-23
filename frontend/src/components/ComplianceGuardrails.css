@@ -1,0 +1,74 @@
+.compliance-guardrails { }
+
+.guardrails-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.guardrail-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  background: var(--neutral-50);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--neutral-100);
+  transition: all var(--transition-fast);
+}
+
+.guardrail-item:hover {
+  border-color: var(--neutral-200);
+  box-shadow: var(--shadow-sm);
+}
+
+.guardrail-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.guardrail-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guardrail-icon.success {
+  background: var(--success-50);
+  color: var(--success-600);
+}
+
+.guardrail-icon.danger {
+  background: var(--danger-50);
+  color: var(--danger-500);
+}
+
+.guardrail-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--neutral-700);
+}
+
+.guardrail-status {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.guardrail-status.success {
+  background: var(--success-50);
+  color: var(--success-700);
+  border: 1px solid var(--success-200);
+}
+
+.guardrail-status.danger {
+  background: var(--danger-50);
+  color: var(--danger-600);
+  border: 1px solid var(--danger-100);
+}
