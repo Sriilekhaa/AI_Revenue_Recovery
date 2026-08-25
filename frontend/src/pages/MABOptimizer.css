@@ -1,0 +1,138 @@
+.mab-page {
+  padding: 0 0 40px 0;
+}
+
+.mab-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.mab-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.mab-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.mab-kpi-card {
+  padding: 16px 20px;
+}
+
+.last-arm-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #1e40af;
+}
+
+.mab-arms-card {
+  padding: 20px;
+}
+
+.arms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.arm-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px 20px;
+  transition: all 0.2s ease;
+}
+
+.arm-card.best-arm {
+  background: #f0fdfa;
+  border-color: #99f6e4;
+  box-shadow: 0 4px 6px -1px rgba(13, 148, 136, 0.08);
+}
+
+.arm-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.arm-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary, #0f172a);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.arm-tags {
+  display: flex;
+  gap: 6px;
+}
+
+.conversion-bar-wrap {
+  margin-bottom: 12px;
+}
+
+.bar-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary, #64748b);
+  margin-bottom: 6px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #2563eb;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.progress-fill.fill-best {
+  background: #0d9488;
+}
+
+.arm-econ-row {
+  display: flex;
+  gap: 20px;
+  font-size: 12px;
+  color: var(--text-secondary, #64748b);
+  padding-top: 8px;
+  border-top: 1px solid #edf2f7;
+}
+
+.inline-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+@media (max-width: 1024px) {
+  .mab-kpis {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

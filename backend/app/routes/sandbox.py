@@ -23,6 +23,7 @@ from app.layer3_policy.engine import decide_intervention
 from app.layer3_policy.consent_check import run_compliance_checks
 from app.layer4_execution.executor import execute_action
 from app.layer1_ingestion.bank_radar import predict_preflight_risk, get_bank_health_radar
+from app.layer4_execution.upi_intent import generate_upi_smart_intent
 from app.database import db
 
 router = APIRouter(prefix="/api/sandbox", tags=["Judge Sandbox"])
@@ -113,6 +114,9 @@ async def run_custom_scenario(req: SandboxScenarioRequest):
     # 6. Pre-flight telemetry
     preflight = predict_preflight_risk(req.amount, req.payment_method)
 
+    # 7. Generate Dynamic UPI Smart Intent & QR payload
+    upi_payload = generate_upi_smart_intent(event.transaction_id, req.amount, req.customer_name)
+
     return {
         "transaction_id": event.transaction_id,
         "final_status": event.status,
@@ -131,6 +135,7 @@ async def run_custom_scenario(req: SandboxScenarioRequest):
         },
         "execution": exec_result.model_dump(mode="json"),
         "preflight_telemetry": preflight,
+        "upi_smart_intent": upi_payload.model_dump(mode="json"),
     }
 
 

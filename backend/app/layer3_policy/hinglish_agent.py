@@ -13,6 +13,8 @@ from typing import Optional
 from datetime import datetime, timedelta
 import re
 
+from app.layer4_execution.upi_intent import generate_upi_smart_intent
+
 
 class ChatMessage(BaseModel):
     sender: str  # "customer" or "agent"
@@ -31,7 +33,9 @@ class ChatSession(BaseModel):
     history: list[ChatMessage] = []
     ptp_date: Optional[str] = None
     discount_offered: float = 0.0
-    status: str = "in_progress"  # in_progress, recovered, ptp_logged, escalated, closed
+    status: str = "in_progress"  # in_progress, recovered, ptp_logged, escalated, closed, opted_out
+    opted_out: bool = False
+    upi_intent: Optional[dict] = None
 
 
 # In-memory sessions
@@ -83,6 +87,9 @@ def start_chat_session(
         )
         quick_replies = ["Pay Now", "Pay Tomorrow", "Need Discount", "Amount Debited"]
 
+    # Generate Smart Intent & QR payload
+    upi_payload = generate_upi_smart_intent(transaction_id, amount, customer_name)
+
     session = ChatSession(
         session_id=session_id,
         transaction_id=transaction_id,
@@ -90,6 +97,7 @@ def start_chat_session(
         amount=amount,
         payment_method=payment_method,
         failure_reason=failure_reason,
+        upi_intent=upi_payload.model_dump(mode="json"),
         history=[
             ChatMessage(
                 sender="agent",
@@ -120,6 +128,21 @@ def process_customer_message(session_id: str, user_text: str) -> ChatMessage:
     session.history.append(ChatMessage(sender="customer", text=user_text))
 
     text_lower = user_text.lower().strip()
+
+    # 0. Adversarial / Regulatory Intent: STOP / UNSUBSCRIBE (Instant Opt-Out)
+    if text_lower in ["stop", "unsubscribe", "band karo", "mat bhejo", "don't message", "cancel alerts", "opt out", "dnd"]:
+        session.status = "opted_out"
+        session.opted_out = True
+        reply_text = (
+            "Aapka request successfully register ho gaya hai. Aapko is transaction ke regarding koi further "
+            "automated message, SMS ya call nahi aayega (TRAI / DND Consent Revocation Verified).\n\n"
+            "Agar aap kabhi dobara order complete karna chahein to direct app/website se pay kar sakte hain. "
+            "Dhanyawaad!"
+        )
+        replies = ["Re-activate Alerts", "Support"]
+        agent_msg = ChatMessage(sender="agent", text=reply_text, quick_replies=replies)
+        session.history.append(agent_msg)
+        return agent_msg
 
     # 1. Intent: Already paid / Amount debited
     if any(w in text_lower for w in ["paise kat", "debited", "cut gaye", "already paid", "cut gaya"]):

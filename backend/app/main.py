@@ -4,7 +4,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
-from app.routes import batch, dashboard, audit, walkthrough, events, policies, agent_chat, b2b, sandbox
+from app.routes import (
+    batch, dashboard, audit, walkthrough, events, policies, agent_chat, b2b, sandbox, mab, economics
+)
 
 app = FastAPI(
     title=settings.APP_NAME,
@@ -35,6 +37,8 @@ app.include_router(policies.router)
 app.include_router(agent_chat.router)
 app.include_router(b2b.router)
 app.include_router(sandbox.router)
+app.include_router(mab.router)
+app.include_router(economics.router)
 
 
 @app.get("/")

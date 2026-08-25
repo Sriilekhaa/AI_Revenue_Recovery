@@ -6,6 +6,7 @@ import LivePipeline from '../components/LivePipeline';
 import BatchProgress from '../components/BatchProgress';
 import ComplianceGuardrails from '../components/ComplianceGuardrails';
 import ExportButtons from '../components/ExportButtons';
+import UnitEconomicsCard from '../components/UnitEconomicsCard';
 import { formatINR, formatINRFull, formatPercent, formatDuration } from '../utils/formatters';
 import { ROOT_CAUSE_LABELS, ACTION_LABELS, CHART_COLORS, API_BASE } from '../utils/constants';
 import './LiveMonitor.css';
@@ -76,6 +77,9 @@ export default function LiveMonitor({ dashboardData, events, batchId }) {
           delay={180}
         />
       </div>
+
+      {/* CFO Unit Economics & Net Recovery Margin Card */}
+      <UnitEconomicsCard batchId={batchId} />
 
       {/* Main Content Grid */}
       <div className="dashboard-grid">

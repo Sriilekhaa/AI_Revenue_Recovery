@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { FlaskConical, Play, CheckCircle2, AlertTriangle, Shield, ArrowRight, Loader2, X } from 'lucide-react';
+import { FlaskConical, Play, CheckCircle2, AlertTriangle, Shield, ArrowRight, Loader2, X, QrCode } from 'lucide-react';
 import { formatINRFull } from '../utils/formatters';
 import { API_BASE } from '../utils/constants';
+import QRCodeModal from './QRCodeModal';
 import './JudgeSandboxModal.css';
 
 export default function JudgeSandboxModal({ isOpen, onClose }) {
@@ -13,6 +14,7 @@ export default function JudgeSandboxModal({ isOpen, onClose }) {
   const [consentWhatsapp, setConsentWhatsapp] = useState(true);
   const [running, setRunning] = useState(false);
   const [result, setResult] = useState(null);
+  const [isQrOpen, setIsQrOpen] = useState(false);
 
   if (!isOpen) return null;
 
@@ -58,6 +60,55 @@ export default function JudgeSandboxModal({ isOpen, onClose }) {
         <div className="sandbox-modal-grid">
           {/* Inputs */}
           <div className="sandbox-inputs">
+            {/* Quick 1-Click Adversarial Presets */}
+            <div className="form-group">
+              <label>1-Click Adversarial & Rubric Presets:</label>
+              <div className="preset-chips-row" style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '8px' }}>
+                <button
+                  type="button"
+                  className="btn btn-outline btn-xs"
+                  onClick={() => {
+                    setAmount('85000');
+                    setPaymentMethod('upi');
+                    setFailureCode('INSUFFICIENT_FUNDS');
+                    setFailureMessage('Customer bank balance below ₹85,000 order value');
+                    setDndRegistered(false);
+                    setConsentWhatsapp(true);
+                  }}
+                >
+                  ₹85k HITL Barrier
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-outline btn-xs"
+                  onClick={() => {
+                    setAmount('12000');
+                    setPaymentMethod('card');
+                    setFailureCode('FRAUD_SUSPECTED');
+                    setFailureMessage('Anomalous geo-velocity transaction flagged by risk heuristic');
+                    setDndRegistered(false);
+                    setConsentWhatsapp(false);
+                  }}
+                >
+                  Fraud Sieve Exclusion
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-outline btn-xs"
+                  onClick={() => {
+                    setAmount('2499');
+                    setPaymentMethod('upi');
+                    setFailureCode('GATEWAY_TIMEOUT');
+                    setFailureMessage('NPCI UPI Switch timed out after 30000ms');
+                    setDndRegistered(true);
+                    setConsentWhatsapp(false);
+                  }}
+                >
+                  TRAI DND Guard
+                </button>
+              </div>
+            </div>
+
             <div className="form-group">
               <label>Amount (₹):</label>
               <input
@@ -191,6 +242,16 @@ export default function JudgeSandboxModal({ isOpen, onClose }) {
                       <p>
                         Recovered: <strong>{formatINRFull(result.amount_recovered || 0)}</strong>
                       </p>
+                      {result.upi_smart_intent && (
+                        <button
+                          type="button"
+                          className="btn btn-outline btn-xs"
+                          onClick={() => setIsQrOpen(true)}
+                          style={{ marginTop: '8px', gap: '4px' }}
+                        >
+                          <QrCode size={12} /> View Dynamic UPI QR & Smart Intent
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -199,6 +260,12 @@ export default function JudgeSandboxModal({ isOpen, onClose }) {
           </div>
         </div>
       </div>
+
+      <QRCodeModal
+        isOpen={isQrOpen}
+        onClose={() => setIsQrOpen(false)}
+        upiData={result?.upi_smart_intent}
+      />
     </div>
   );
 }

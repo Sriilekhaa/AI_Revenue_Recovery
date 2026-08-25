@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { Send, Bot, User, Sparkles, Calendar, Shield, ArrowRight, RotateCcw } from 'lucide-react';
+import { Send, Bot, User, Sparkles, Calendar, Shield, ArrowRight, RotateCcw, QrCode, ShieldAlert } from 'lucide-react';
+import QRCodeModal from '../components/QRCodeModal';
 import { API_BASE } from '../utils/constants';
 import './AgentSimulator.css';
 
@@ -10,6 +11,7 @@ export default function AgentSimulator() {
   const [sessionData, setSessionData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [language, setLanguage] = useState('hinglish');
+  const [isQrOpen, setIsQrOpen] = useState(false);
   const chatEndRef = useRef(null);
 
   const startSession = async (lang = language) => {
@@ -134,6 +136,14 @@ export default function AgentSimulator() {
                 <span className="online-dot"></span> Official Business Account • Verified
               </span>
             </div>
+            <button
+              className="btn btn-outline btn-xs upi-qr-trigger"
+              onClick={() => setIsQrOpen(true)}
+              style={{ marginLeft: 'auto', marginRight: '8px', gap: '4px', fontSize: '11px' }}
+            >
+              <QrCode size={12} />
+              <span>Smart Intent & QR</span>
+            </button>
             <span className="badge badge-success">Live Agent</span>
           </div>
 
@@ -279,6 +289,12 @@ export default function AgentSimulator() {
           </div>
         </div>
       </div>
+
+      <QRCodeModal
+        isOpen={isQrOpen}
+        onClose={() => setIsQrOpen(false)}
+        upiData={sessionData?.upi_intent}
+      />
     </div>
   );
 }

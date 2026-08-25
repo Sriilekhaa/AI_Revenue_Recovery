@@ -37,6 +37,9 @@ class Database:
     def get_events_by_batch(self, batch_id: str) -> list[RevenueEvent]:
         return [e for e in self.events.values() if e.batch_id == batch_id]
 
+    def get_all_events(self) -> list[RevenueEvent]:
+        return list(self.events.values())
+
     def get_events_by_status(self, status: str) -> list[RevenueEvent]:
         return [e for e in self.events.values() if e.status == status]
 

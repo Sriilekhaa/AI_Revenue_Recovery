@@ -9,6 +9,7 @@ import AuditLogs from './pages/AuditLogs';
 import AgentSimulator from './pages/AgentSimulator';
 import B2BReceivables from './pages/B2BReceivables';
 import BankHealthRadar from './pages/BankHealthRadar';
+import MABOptimizer from './pages/MABOptimizer';
 import { API_BASE } from './utils/constants';
 import './App.css';
 
@@ -92,6 +93,7 @@ function App() {
                   />
                 }
               />
+              <Route path="/mab-optimizer" element={<MABOptimizer />} />
               <Route path="/agent-simulator" element={<AgentSimulator />} />
               <Route path="/b2b" element={<B2BReceivables />} />
               <Route path="/bank-radar" element={<BankHealthRadar />} />
