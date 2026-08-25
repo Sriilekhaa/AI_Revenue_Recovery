@@ -2,12 +2,15 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   BarChart3, Activity, FileText, Settings, HelpCircle,
-  LayoutDashboard, Layers, ShieldCheck, PlusCircle
+  LayoutDashboard, Layers, ShieldCheck, PlusCircle, MessageSquare, Building2, Radio
 } from 'lucide-react';
 import './Sidebar.css';
 
 const NAV_ITEMS = [
   { path: '/', label: 'Live Monitor', icon: Activity },
+  { path: '/agent-simulator', label: 'Hinglish Agent', icon: MessageSquare },
+  { path: '/b2b', label: 'B2B & PTP Tracker', icon: Building2 },
+  { path: '/bank-radar', label: 'Bank Radar', icon: Radio },
   { path: '/batches', label: 'Batch Runs', icon: Layers },
   { path: '/policies', label: 'Intervention Policies', icon: ShieldCheck },
   { path: '/audit', label: 'Audit Logs', icon: FileText },

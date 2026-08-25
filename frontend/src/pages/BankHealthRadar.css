@@ -1,0 +1,113 @@
+.radar-page { animation: fadeIn 0.3s ease-out; }
+
+.radar-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.spinning { animation: spin 1s linear infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+.bank-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.bank-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  border-top: 4px solid #3b82f6;
+  transition: all var(--transition-fast);
+}
+
+.bank-card.healthy { border-top-color: #0d9488; }
+.bank-card.degraded { border-top-color: #f59e0b; }
+.bank-card.down { border-top-color: #ef4444; }
+
+.bank-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.bank-name { font-size: 1.05rem; font-weight: 700; color: var(--neutral-900); display: block; }
+.bank-method { font-size: 0.725rem; color: var(--neutral-500); font-weight: 500; }
+
+.bank-metrics-row {
+  display: flex;
+  gap: var(--space-6);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--neutral-100);
+  border-bottom: 1px solid var(--neutral-100);
+}
+
+.bank-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.metric-label { font-size: 0.675rem; color: var(--neutral-500); text-transform: uppercase; font-weight: 600; }
+.metric-value { font-size: 1.25rem; font-weight: 800; font-family: var(--font-mono); color: var(--neutral-800); }
+.metric-value.success { color: #0d9488; }
+.metric-value.warning { color: #d97706; }
+.metric-value.danger { color: #dc2626; }
+
+.incidents-box {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+}
+
+.incident-alert {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fffbeb;
+  color: #92400e;
+  border: 1px solid #fef3c7;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.725rem;
+  line-height: 1.35;
+}
+
+.incident-healthy {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.725rem;
+  color: #0f766e;
+}
+
+.smart-route-box {
+  background: #f8fafc;
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  border: 1px dashed var(--neutral-300);
+  margin-top: auto;
+}
+
+.sr-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.675rem;
+  font-weight: 700;
+  color: #1e40af;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 2px;
+}
+
+.sr-text {
+  font-size: 0.75rem;
+  color: var(--neutral-700);
+  line-height: 1.4;
+}

@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
-from app.routes import batch, dashboard, audit, walkthrough, events, policies
+from app.routes import batch, dashboard, audit, walkthrough, events, policies, agent_chat, b2b, sandbox
 
 app = FastAPI(
     title=settings.APP_NAME,
@@ -32,6 +32,9 @@ app.include_router(audit.router)
 app.include_router(walkthrough.router)
 app.include_router(events.router)
 app.include_router(policies.router)
+app.include_router(agent_chat.router)
+app.include_router(b2b.router)
+app.include_router(sandbox.router)
 
 
 @app.get("/")
@@ -49,6 +52,10 @@ async def root():
             "export_csv": "GET /api/audit/export/csv",
             "walkthrough": "GET /api/walkthrough/{transaction_id}",
             "policies": "GET /api/policies/",
+            "agent_chat": "POST /api/agent/message",
+            "b2b_invoices": "GET /api/b2b/invoices",
+            "bank_radar": "GET /api/sandbox/bank-radar",
+            "sandbox_run": "POST /api/sandbox/run",
         },
     }
 

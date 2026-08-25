@@ -6,6 +6,9 @@ import LiveMonitor from './pages/LiveMonitor';
 import BatchRuns from './pages/BatchRuns';
 import InterventionPolicies from './pages/InterventionPolicies';
 import AuditLogs from './pages/AuditLogs';
+import AgentSimulator from './pages/AgentSimulator';
+import B2BReceivables from './pages/B2BReceivables';
+import BankHealthRadar from './pages/BankHealthRadar';
 import { API_BASE } from './utils/constants';
 import './App.css';
 
@@ -89,6 +92,9 @@ function App() {
                   />
                 }
               />
+              <Route path="/agent-simulator" element={<AgentSimulator />} />
+              <Route path="/b2b" element={<B2BReceivables />} />
+              <Route path="/bank-radar" element={<BankHealthRadar />} />
               <Route path="/batches" element={<BatchRuns />} />
               <Route path="/policies" element={<InterventionPolicies />} />
               <Route path="/audit" element={<AuditLogs />} />
