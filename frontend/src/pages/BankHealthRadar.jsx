@@ -31,7 +31,7 @@ export default function BankHealthRadar() {
       <div className="page-header">
         <div className="radar-title-row">
           <div>
-            <h2 className="page-title">🛡️ Pre-Flight Bank Health & Degradation Radar</h2>
+            <h2 className="page-title">Pre-Flight Bank Health & Degradation Radar</h2>
             <p className="page-subtitle">
               Live telemetry on Indian banking switches, NPCI UPI latencies, and predictive auto-rerouting before payments fail.
             </p>

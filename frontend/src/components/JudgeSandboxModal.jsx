@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FlaskConical, Play, CheckCircle2, AlertTriangle, Shield, ArrowRight, Loader2 } from 'lucide-react';
+import { FlaskConical, Play, CheckCircle2, AlertTriangle, Shield, ArrowRight, Loader2, X } from 'lucide-react';
 import { formatINRFull } from '../utils/formatters';
 import { API_BASE } from '../utils/constants';
 import './JudgeSandboxModal.css';
@@ -48,11 +48,11 @@ export default function JudgeSandboxModal({ isOpen, onClose }) {
           <div className="smh-left">
             <FlaskConical size={20} color="#2563eb" />
             <div>
-              <h3>🧪 Judge Scenario Sandbox</h3>
+              <h3>Judge Scenario Sandbox</h3>
               <p>Test arbitrary failure amounts, error messages, and compliance states live.</p>
             </div>
           </div>
-          <button className="btn-close" onClick={onClose}>✕</button>
+          <button className="btn-close" onClick={onClose}><X size={16} /></button>
         </div>
 
         <div className="sandbox-modal-grid">
@@ -67,7 +67,7 @@ export default function JudgeSandboxModal({ isOpen, onClose }) {
                 placeholder="e.g. 85000"
               />
               <span className="input-hint">
-                {parseFloat(amount) >= 50000 ? '⚠️ Exceeds ₹50,000 HITL threshold -> Triggers Human Escalation' : 'Standard autonomous recovery band'}
+                {parseFloat(amount) >= 50000 ? 'Exceeds ₹50,000 HITL threshold -> Triggers Human Escalation' : 'Standard autonomous recovery band'}
               </span>
             </div>
 
@@ -179,7 +179,7 @@ export default function JudgeSandboxModal({ isOpen, onClose }) {
                         Action: <strong>{result.policy?.action || result.action_taken}</strong> via {result.policy?.channel || 'None'}
                       </p>
                       {result.policy?.requires_hitl && (
-                        <span className="hitl-badge">🚨 HITL Escalation Active (&gt; ₹50,000)</span>
+                        <span className="hitl-badge">HITL Escalation Active (&gt; ₹50,000)</span>
                       )}
                     </div>
                   </div>

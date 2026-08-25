@@ -90,7 +90,7 @@ export default function AgentSimulator() {
       <div className="page-header">
         <div className="agent-title-row">
           <div>
-            <h2 className="page-title">💬 Autonomous Conversational Agent</h2>
+            <h2 className="page-title">Autonomous Conversational Agent</h2>
             <p className="page-subtitle">
               Live Hinglish code-switched WhatsApp recovery bot with objection handling & Promise-to-Pay extraction.
             </p>
@@ -100,19 +100,19 @@ export default function AgentSimulator() {
               className={`lang-btn ${language === 'hinglish' ? 'active' : ''}`}
               onClick={() => handleLanguageChange('hinglish')}
             >
-              Hinglish 🇮🇳
+              Hinglish
             </button>
             <button
               className={`lang-btn ${language === 'english' ? 'active' : ''}`}
               onClick={() => handleLanguageChange('english')}
             >
-              English 🇬🇧
+              English
             </button>
             <button
               className={`lang-btn ${language === 'hindi' ? 'active' : ''}`}
               onClick={() => handleLanguageChange('hindi')}
             >
-              हिन्दी 🇮🇳
+              हिन्दी
             </button>
             <button className="btn btn-outline btn-sm" onClick={() => startSession(language)}>
               <RotateCcw size={14} /> Reset

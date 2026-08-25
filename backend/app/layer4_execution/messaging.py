@@ -20,7 +20,7 @@ MESSAGE_TEMPLATES = {
             "Complete it here: {link} — Recovery AI"
         ),
         "whatsapp": (
-            "🔔 Hi {name}! We noticed your payment of ₹{amount:,.2f} didn't go through. "
+            "Hi {name}! We noticed your payment of ₹{amount:,.2f} didn't go through. "
             "No worries — you can complete it securely here: {link}\n\n"
             "Need help? Reply to this message. — Recovery AI"
         ),
@@ -40,7 +40,7 @@ MESSAGE_TEMPLATES = {
             "Try another payment method here: {link} — Recovery AI"
         ),
         "whatsapp": (
-            "🔄 Hi {name}! Your {method} payment of ₹{amount:,.2f} didn't work. "
+            "Hi {name}! Your {method} payment of ₹{amount:,.2f} didn't work. "
             "You can try a different payment method here: {link}\n\n"
             "— Recovery AI"
         ),
@@ -51,7 +51,7 @@ MESSAGE_TEMPLATES = {
             "Pay here: {link} — Recovery AI"
         ),
         "whatsapp": (
-            "🎉 Hi {name}! Good news — complete your order of ₹{amount:,.2f} now "
+            "Hi {name}! Good news — complete your order of ₹{amount:,.2f} now "
             "and enjoy {discount}% off!\n\nPay securely: {link}\n\n— Recovery AI"
         ),
     },
@@ -61,7 +61,7 @@ MESSAGE_TEMPLATES = {
             "No action needed. — Recovery AI"
         ),
         "whatsapp": (
-            "🔄 Hi {name}, we're automatically retrying your payment of ₹{amount:,.2f}. "
+            "Hi {name}, we're automatically retrying your payment of ₹{amount:,.2f}. "
             "You don't need to do anything!\n\n— Recovery AI"
         ),
     },

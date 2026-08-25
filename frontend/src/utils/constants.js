@@ -1,17 +1,17 @@
 /* Color palette, status mappings, and constants */
 
 export const STATUS_CONFIG = {
-  recovered: { label: 'Recovered', color: '#0d9488', bg: '#f0fdfa', border: '#99f6e4', icon: '✅' },
-  contacted: { label: 'Contacted', color: '#2563eb', bg: '#eff6ff', border: '#bfdbfe', icon: '📨' },
-  diagnosed: { label: 'Diagnosed', color: '#7c3aed', bg: '#f5f3ff', border: '#ddd6fe', icon: '🔍' },
-  detected: { label: 'Detected', color: '#d97706', bg: '#fffbeb', border: '#fef3c7', icon: '⚠️' },
-  fraud_flagged: { label: 'Fraud Flagged', color: '#dc2626', bg: '#fef2f2', border: '#fee2e2', icon: '🚨' },
-  exception: { label: 'Exception', color: '#64748b', bg: '#f8fafc', border: '#e2e8f0', icon: '⏹️' },
-  snoozed: { label: 'Snoozed', color: '#94a3b8', bg: '#f8fafc', border: '#e2e8f0', icon: '😴' },
-  policy_assigned: { label: 'Policy Assigned', color: '#059669', bg: '#ecfdf5', border: '#a7f3d0', icon: '📋' },
-  ingested: { label: 'Ingested', color: '#6b7280', bg: '#f9fafb', border: '#e5e7eb', icon: '📥' },
-  hitl_pending: { label: 'HITL Pending', color: '#ea580c', bg: '#fff7ed', border: '#fed7aa', icon: '👤' },
-  retry_scheduled: { label: 'Retry Scheduled', color: '#0284c7', bg: '#f0f9ff', border: '#bae6fd', icon: '🔄' },
+  recovered: { label: 'Recovered', color: '#0d9488', bg: '#f0fdfa', border: '#99f6e4' },
+  contacted: { label: 'Contacted', color: '#2563eb', bg: '#eff6ff', border: '#bfdbfe' },
+  diagnosed: { label: 'Diagnosed', color: '#7c3aed', bg: '#f5f3ff', border: '#ddd6fe' },
+  detected: { label: 'Detected', color: '#d97706', bg: '#fffbeb', border: '#fef3c7' },
+  fraud_flagged: { label: 'Fraud Flagged', color: '#dc2626', bg: '#fef2f2', border: '#fee2e2' },
+  exception: { label: 'Exception', color: '#64748b', bg: '#f8fafc', border: '#e2e8f0' },
+  snoozed: { label: 'Snoozed', color: '#94a3b8', bg: '#f8fafc', border: '#e2e8f0' },
+  policy_assigned: { label: 'Policy Assigned', color: '#059669', bg: '#ecfdf5', border: '#a7f3d0' },
+  ingested: { label: 'Ingested', color: '#6b7280', bg: '#f9fafb', border: '#e5e7eb' },
+  hitl_pending: { label: 'HITL Pending', color: '#ea580c', bg: '#fff7ed', border: '#fed7aa' },
+  retry_scheduled: { label: 'Retry Scheduled', color: '#0284c7', bg: '#f0f9ff', border: '#bae6fd' },
 };
 
 export const ROOT_CAUSE_LABELS = {

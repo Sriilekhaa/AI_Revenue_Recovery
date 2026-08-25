@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Search, X } from 'lucide-react';
 import { formatDateTime, truncateId } from '../utils/formatters';
 import { API_BASE } from '../utils/constants';
 import ExportButtons from '../components/ExportButtons';
@@ -90,9 +91,11 @@ export default function AuditLogs() {
         {walkthrough && (
           <div className="card walkthrough-panel animate-slide-in-left">
             <div className="card-header">
-              <h3 className="card-title">🔍 Transaction Walkthrough</h3>
+              <h3 className="card-title">
+                <Search size={16} className="inline-icon" /> Transaction Walkthrough
+              </h3>
               <button className="btn btn-ghost btn-sm" onClick={() => { setSelectedTxn(null); setWalkthrough(null); }}>
-                ✕
+                <X size={16} />
               </button>
             </div>
 

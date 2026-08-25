@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { Layers } from 'lucide-react';
 import { formatINRFull, formatDateTime, formatPercent } from '../utils/formatters';
-import { API_BASE, STATUS_CONFIG } from '../utils/constants';
+import { API_BASE } from '../utils/constants';
 import './BatchRuns.css';
 
 export default function BatchRuns() {
@@ -28,7 +29,7 @@ export default function BatchRuns() {
         </div>
       ) : batches.length === 0 ? (
         <div className="empty-state">
-          <div className="empty-icon">🗂️</div>
+          <div className="empty-icon"><Layers size={36} color="var(--neutral-400)" /></div>
           <h3>No batch runs yet</h3>
           <p>Generate your first batch to see pipeline execution history.</p>
         </div>

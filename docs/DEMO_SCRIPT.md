@@ -1,4 +1,4 @@
-# 🎙️ 90-Second Demo Script — Razorpay /buildathon 2026
+# 90-Second Demo Script — Razorpay /buildathon 2026
 
 ## Track 03: AI Revenue Recovery
 

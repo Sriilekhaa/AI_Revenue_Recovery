@@ -53,25 +53,25 @@ def start_chat_session(
     
     if language == "hinglish":
         intro_text = (
-            f"Namaste {first_name} ji! 🙏\n"
+            f"Namaste {first_name} ji!\n"
             f"Humne notice kiya ki aapka ₹{amount:,.2f} ka payment for {payment_method.upper()} "
             f"'{failure_reason}' ki wajah se complete nahi ho paya.\n\n"
             f"Koi baat nahi, aap secure Razorpay payment link se 1-click mein complete kar sakte hain:\n"
-            f"🔗 https://rzp.io/i/rcv_{transaction_id[:6]}\n\n"
+            f"https://rzp.io/i/rcv_{transaction_id[:6]}\n\n"
             f"Kya main aapko koi aur payment method ya split option suggest karun?"
         )
         quick_replies = [
-            "💳 Link se abhi pay karta hoon",
-            "⏳ Kal subah pay karunga (Promise to Pay)",
-            "📉 Thoda discount milega kya?",
-            "❓ Paise kat gaye par order confirm nahi hua"
+            "Link se abhi pay karta hoon",
+            "Kal subah pay karunga (Promise to Pay)",
+            "Thoda discount milega kya?",
+            "Paise kat gaye par order confirm nahi hua"
         ]
     elif language == "hindi":
         intro_text = (
-            f"नमस्ते {first_name} जी! 🙏\n"
+            f"नमस्ते {first_name} जी!\n"
             f"आपका ₹{amount:,.2f} का भुगतान '{failure_reason}' के कारण असफल हो गया।\n"
             f"कृपया नीचे दिए गए सुरक्षित लिंक से भुगतान पूरा करें:\n"
-            f"🔗 https://rzp.io/i/rcv_{transaction_id[:6]}"
+            f"https://rzp.io/i/rcv_{transaction_id[:6]}"
         )
         quick_replies = ["अभी भुगतान करें", "कल करूँगा", "सहायता चाहिए"]
     else:
@@ -79,7 +79,7 @@ def start_chat_session(
             f"Hi {first_name}! We noticed your payment of ₹{amount:,.2f} via {payment_method.upper()} "
             f"could not be completed due to {failure_reason}.\n\n"
             f"You can quickly complete it using your secure Razorpay link:\n"
-            f"🔗 https://rzp.io/i/rcv_{transaction_id[:6]}"
+            f"https://rzp.io/i/rcv_{transaction_id[:6]}"
         )
         quick_replies = ["Pay Now", "Pay Tomorrow", "Need Discount", "Amount Debited"]
 
@@ -146,8 +146,8 @@ def process_customer_message(session_id: str, user_text: str) -> ChatMessage:
         session.ptp_date = ptp_date
         session.status = "ptp_logged"
         reply_text = (
-            f"Done! Maine aapka Promise-to-Pay commitment note kar liya hai: 📅 **{ptp_date}**.\n"
-            f"Hum aapko tab tak koi repetitive message ya call nahi karenge (TRAI Compliance Followed ✅).\n\n"
+            f"Done! Maine aapka Promise-to-Pay commitment note kar liya hai: **{ptp_date}**.\n"
+            f"Hum aapko tab tak koi repetitive message ya call nahi karenge (TRAI Compliance Followed).\n\n"
             f"Scheduled time par hum aapko WhatsApp par gentle reminder aur active payment link bhej denge. Dhanyawaad!"
         )
         replies = ["Link abhi bhej do", "Theek hai, thank you!"]
@@ -159,11 +159,11 @@ def process_customer_message(session_id: str, user_text: str) -> ChatMessage:
             discounted_amt = round(session.amount * (1 - discount_pct / 100), 2)
             session.discount_offered = discount_pct
             reply_text = (
-                f"Kyunki aap hamare valued customer hain, humne aapke liye ek special **5% instant recovery discount** apply kiya hai! 🎉\n\n"
+                f"Kyunki aap hamare valued customer hain, humne aapke liye ek special **5% instant recovery discount** apply kiya hai!\n\n"
                 f"Original Amount: ~~₹{session.amount:,.2f}~~\n"
                 f"Discounted Amount: **₹{discounted_amt:,.2f}**\n\n"
                 f"Ye limited-period link 30 minute ke liye active hai:\n"
-                f"🔗 https://rzp.io/i/disc_{session.transaction_id[:6]}"
+                f"https://rzp.io/i/disc_{session.transaction_id[:6]}"
             )
             replies = ["Abhi pay karta hoon", "Split payment option do"]
         else:
@@ -177,7 +177,7 @@ def process_customer_message(session_id: str, user_text: str) -> ChatMessage:
     elif any(w in text_lower for w in ["pay karta hoon", "paid", "done", "complete", "ho gaya", "link se"]):
         session.status = "recovered"
         reply_text = (
-            "Shandar! 🎉 Payment successfully receive ho gaya hai. Aapka order confirm ho chuka hai.\n\n"
+            "Shandar! Payment successfully receive ho gaya hai. Aapka order confirm ho chuka hai.\n\n"
             "Invoice aur confirmation details aapke registered WhatsApp & Email par bhej di gayi hain. "
             "Recovery AI ke saath transact karne ke liye shukriya!"
         )
@@ -188,7 +188,7 @@ def process_customer_message(session_id: str, user_text: str) -> ChatMessage:
         reply_text = (
             "Ji main samajh gaya! Aap chahein to bina kisi hassle ke UPI Apps (GPay / PhonePe / Paytm), "
             "Card ya Netbanking se payment complete kar sakte hain:\n"
-            f"🔗 https://rzp.io/i/rcv_{session.transaction_id[:6]}\n\n"
+            f"https://rzp.io/i/rcv_{session.transaction_id[:6]}\n\n"
             "Agar koi technical issue aa raha hai to batayein, main madad karta hoon."
         )
         replies = ["Pay Now", "Kal pay karunga", "Customer support se baat karni hai"]

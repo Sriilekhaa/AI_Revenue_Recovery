@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { BarChart3 } from 'lucide-react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import StatCard, { RecoveryRateCard } from '../components/StatCard';
 import LivePipeline from '../components/LivePipeline';
@@ -18,7 +19,7 @@ export default function LiveMonitor({ dashboardData, events, batchId }) {
           <p className="page-subtitle">Real-time pipeline analysis and automated interventions.</p>
         </div>
         <div className="empty-state">
-          <div className="empty-icon">📊</div>
+          <div className="empty-icon"><BarChart3 size={36} color="var(--neutral-400)" /></div>
           <h3>No batch data yet</h3>
           <p>Click "Generate Batch Report" in the sidebar to run the AI recovery pipeline on synthetic data.</p>
         </div>

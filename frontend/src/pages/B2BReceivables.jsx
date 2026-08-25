@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Building2, Calendar, AlertCircle, CheckCircle2, Clock, DollarSign, Send, ArrowUpRight } from 'lucide-react';
+import { Building2, Calendar, AlertCircle, CheckCircle2, Clock, DollarSign, Send, ArrowUpRight, X } from 'lucide-react';
 import { formatINRFull, formatDateTime } from '../utils/formatters';
 import { API_BASE } from '../utils/constants';
 import './B2BReceivables.css';
@@ -55,7 +55,7 @@ export default function B2BReceivables() {
   return (
     <div className="b2b-page animate-fade-in">
       <div className="page-header">
-        <h2 className="page-title">📑 B2B Receivables & Promise-to-Pay (PTP) Sequencer</h2>
+        <h2 className="page-title">B2B Receivables & Promise-to-Pay (PTP) Sequencer</h2>
         <p className="page-subtitle">
           Autonomous enterprise invoice recovery, dynamic aging buckets, commitment tracking, and dispute escalation.
         </p>
@@ -157,7 +157,7 @@ export default function B2BReceivables() {
                       {inv.promise_to_pay_date ? (
                         <div className="ptp-cell">
                           <span className={`ptp-badge ${isPtpBroken ? 'broken' : 'committed'}`}>
-                            📅 {new Date(inv.promise_to_pay_date).toLocaleDateString([], { month: 'short', day: 'numeric' })}
+                            <Calendar size={12} className="inline-icon" /> {new Date(inv.promise_to_pay_date).toLocaleDateString([], { month: 'short', day: 'numeric' })}
                           </span>
                           <span className="ptp-status-sub">{inv.promise_status.toUpperCase()}</span>
                         </div>
@@ -192,7 +192,7 @@ export default function B2BReceivables() {
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
               <h3>Log Promise-to-Pay Commitment</h3>
-              <button className="btn-close" onClick={() => setSelectedInvoice(null)}>✕</button>
+              <button className="btn-close" onClick={() => setSelectedInvoice(null)}><X size={16} /></button>
             </div>
             <div className="modal-body">
               <p>

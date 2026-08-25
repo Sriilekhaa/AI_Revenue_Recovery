@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { ShieldCheck, Cpu } from 'lucide-react';
 import { API_BASE } from '../utils/constants';
 import './InterventionPolicies.css';
 
@@ -34,7 +35,9 @@ export default function InterventionPolicies() {
       {/* Stopping Rules */}
       <div className="card" style={{ marginBottom: 20 }}>
         <div className="card-header">
-          <h3 className="card-title">🛑 Hard-Coded Stopping Rules</h3>
+          <h3 className="card-title">
+            <ShieldCheck size={16} className="inline-icon" /> Hard-Coded Stopping Rules
+          </h3>
           <span className="badge badge-danger">Non-Optional</span>
         </div>
         <div className="stopping-rules-grid">
@@ -50,7 +53,9 @@ export default function InterventionPolicies() {
       {/* Policy Rules */}
       <div className="card">
         <div className="card-header">
-          <h3 className="card-title">🧠 Policy Decision Table</h3>
+          <h3 className="card-title">
+            <Cpu size={16} className="inline-icon" /> Policy Decision Table
+          </h3>
           <span className="badge badge-info">{policies.policy_rules_count} rules</span>
         </div>
         <div className="policy-rules-list stagger-children">

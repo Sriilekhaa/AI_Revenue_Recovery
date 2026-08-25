@@ -1,10 +1,10 @@
-# 🚀 Recovery AI — Razorpay /buildathon 2026 (Track 03: AI Revenue Recovery)
+# Recovery AI — Razorpay /buildathon 2026 (Track 03: AI Revenue Recovery)
 
 > **"Don't just identify the problem. Show measured money recovered across a batch, with compliant escalation, stopping rules, and an audit trail."**
 
 ---
 
-## 📌 Executive Summary
+## Executive Summary
 
 **Recovery AI** is an enterprise-grade autonomous revenue operating system built specifically for Indian digital commerce. It connects pre-flight risk prediction, failure detection, multi-signal diagnosis, policy decisioning, and idempotent execution across the three primary revenue degradation vectors:
 
@@ -14,30 +14,30 @@
 
 ---
 
-## 🌟 4 Breakthrough Innovations (10x Ahead of Standard Recovery Pipelines)
+## 4 Breakthrough Innovations (10x Ahead of Standard Recovery Pipelines)
 
-### 1. 💬 Hinglish Conversational Recovery Agent Simulator
+### 1. Hinglish Conversational Recovery Agent Simulator
 - **Natural Code-Switching**: Speaks natural conversational Hinglish (*"Namaste Rahul ji! Aapka ₹2,499 ka payment bank timeout ki wajah se fail ho gaya..."*), Hindi, or English.
 - **Objection Handling**: Autonomously resolves customer friction points (*"Paise cut gaye par order confirm nahi hua"*, *"Abhi balance nahi hai, kal karunga"*, *"Thoda discount milega kya?"*).
 - **Promise-to-Pay (PTP) Parsing**: Extracts customer payment commitments (e.g. *"Kal subah 11 baje"*), records the commitment date, and pauses aggressive nudges in compliance with TRAI regulations.
 - **Bounded Incentives**: Grants dynamic instant recovery discounts strictly capped at 5% to prevent margin erosion.
 
-### 2. 📑 B2B Receivables & Promise-to-Pay (PTP) Tracker
+### 2. B2B Receivables & Promise-to-Pay (PTP) Tracker
 - **Aging Buckets**: Categorizes outstanding invoices into *Current*, *1–15 Days*, *16–30 Days*, and *30+ Days Overdue*.
 - **Commitment SLA Management**: Automatically schedules reminders before the promised date and triggers automated escalations if the PTP is broken.
 - **Dispute Resolution Triage**: Distinguishes invoice/billing discrepancies from temporary cashflow delays.
 
-### 3. 🛡️ Pre-Flight AI Bank Degradation & Predictive Risk Radar
+### 3. Pre-Flight AI Bank Degradation & Predictive Risk Radar
 - **Live Infrastructure Telemetry**: Real-time switch status for major Indian banks (HDFC, SBI, ICICI, Axis) and UPI rails (NPCI UPI Switch).
 - **Predictive Risk Scoring (0–100)**: Evaluates switch latency, historical failure rates, and transaction amounts before attempting debits to route around degraded payment corridors.
 
-### 4. 🧪 Interactive Judge Scenario Sandbox
+### 4. Interactive Judge Scenario Sandbox
 - **Instant Interactive Test Bench**: Judges can input **any** custom payment failure scenario, transaction amount (e.g. ₹95,000 Mandate Timeout), payment method, and DND/consent parameters.
 - **Real-Time 5-Layer Pipeline Execution**: Instantly renders the diagnosis confidence, fraud sieve check, stopping rules validation, policy assignment, and final execution log.
 
 ---
 
-## 🏛 5-Layer Architecture
+## 5-Layer Architecture
 
 ```mermaid
 graph TB
@@ -82,7 +82,7 @@ graph TB
 
 ---
 
-## 🎯 Rubric Deliverables Alignment
+## Rubric Deliverables Alignment
 
 | Rubric Criterion | Implementation & Proof Point |
 |---|---|
@@ -93,7 +93,7 @@ graph TB
 
 ---
 
-## ⚡ Quick Start
+## Quick Start
 
 ### 1. Prerequisites
 - Python 3.11+
@@ -118,7 +118,7 @@ npm run dev
 
 ---
 
-## 📡 REST API Reference
+## REST API Reference
 
 - `POST /api/batch/generate` — Generate a synthetic batch run (150–500 events) and execute recovery pipeline.
 - `GET /api/dashboard/` — Retrieve aggregated analytics, recovery funnel, method breakdown, and root cause distributions.
