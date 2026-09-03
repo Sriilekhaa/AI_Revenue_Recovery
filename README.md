@@ -1,5 +1,4 @@
-# Recovery AI — Razorpay /buildathon 2026 (Track 03: AI Revenue Recovery)
-
+# Recovery AI 
 > **"Don't just identify the problem. Show measured money recovered across a batch, with compliant escalation, stopping rules, and an audit trail."**
 
 ---
