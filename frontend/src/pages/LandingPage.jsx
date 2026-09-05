@@ -210,7 +210,7 @@ export default function LandingPage({ onRunBatch, generating }) {
 
                   {/* Bubble 4 */}
                   <div className="exact-bubble exact-bubble-success">
-                    <p>Payment successful! 🎉 Thanks for completing this.</p>
+                    <p>Payment successful! Thanks for completing this.</p>
                     <span className="exact-bubble-time">10:25 AM</span>
                   </div>
                 </div>
@@ -221,8 +221,17 @@ export default function LandingPage({ onRunBatch, generating }) {
                     <span className="exact-input-placeholder">Message...</span>
                   </div>
                   <div className="exact-input-icons">
-                    <span className="exact-icon-paperclip">📎</span>
-                    <span className="exact-icon-camera">📷</span>
+                    <span className="exact-icon-paperclip">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+                      </svg>
+                    </span>
+                    <span className="exact-icon-camera">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                        <circle cx="12" cy="13" r="4" />
+                      </svg>
+                    </span>
                     <div className="exact-mic-circle">
                       <svg width="10" height="10" viewBox="0 0 24 24" fill="#fff">
                         <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
