@@ -19,24 +19,46 @@
 .lang-btn {
   padding: 6px 14px;
   border-radius: var(--radius-full);
-  border: 1px solid var(--neutral-200);
-  background: white;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
   font-size: 0.775rem;
   font-weight: 600;
-  color: var(--neutral-700);
+  color: #334155;
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .lang-btn:hover {
-  background: var(--neutral-50);
-  border-color: var(--neutral-300);
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  color: #0f172a;
 }
 
 .lang-btn.active {
-  background: #1e3a8a;
-  color: white;
-  border-color: #1e3a8a;
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+}
+
+/* Dark mode for language selector */
+[data-theme="dark"] .lang-btn {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .lang-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .lang-btn.active {
+  background: #2563eb;
+  border-color: #3b82f6;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.45);
 }
 
 .agent-layout {
