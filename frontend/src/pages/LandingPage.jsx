@@ -1,15 +1,153 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ArrowRight, Play, Database, Search, ShieldCheck, Zap,
-  TrendingUp, BarChart2, Lock, FileText, Sun, Moon, ArrowLeft
+  TrendingUp, BarChart2, Lock, FileText, Sun, Moon, ArrowLeft,
+  CheckCircle2, Sparkles, RefreshCw, Smartphone, CreditCard, Building2
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import './LandingPage.css';
 
+const SCENARIOS = [
+  {
+    id: 'upi',
+    title: 'UPI Switch Timeout',
+    tag: '⚡ UPI 1-Tap',
+    amount: '₹2,499',
+    customer: 'Rahul Verma',
+    merchant: 'Zylo Retail',
+    agentMessage: 'Hi Rahul! Your payment of ₹2,499 for Zylo Retail timed out due to bank switch latency. Complete it in 1-tap below?',
+    userMessage: 'Haan, please send the UPI link',
+    cardTitle: 'Zero-Redirect UPI Payment Link',
+    recoveredAmount: '₹2,499',
+    successMessage: 'Payment received via UPI! Order confirmed.',
+    time: '10:24 AM'
+  },
+  {
+    id: 'cart',
+    title: 'Cart Drop-off',
+    tag: '🛒 5% Dynamic Offer',
+    amount: '₹4,890',
+    customer: 'Priya Sharma',
+    merchant: 'Urban Vogue',
+    agentMessage: 'Namaste Priya ji! We reserved your cart items at Urban Vogue with an instant 5% recovery discount (₹245 off).',
+    userMessage: 'Great! Pay kar rahi hoon abhi.',
+    cardTitle: 'Discount Applied • ₹4,645',
+    recoveredAmount: '₹4,645',
+    successMessage: 'Payment verified! Your order is being packed.',
+    time: '02:15 PM'
+  },
+  {
+    id: 'b2b',
+    title: 'B2B Invoice Due',
+    tag: '💼 PTP Sequencer',
+    amount: '₹68,500',
+    customer: 'Vikram Mehta (CFO)',
+    merchant: 'Nexus Cloud Enterprise',
+    agentMessage: 'Hi Vikram, invoice #NX-8821 for ₹68,500 is due today. Shall we schedule the Auto-Debit or send a payment link?',
+    userMessage: 'Kal dopahar 2 baje schedule kar do.',
+    cardTitle: 'PTP Registered: Tomorrow 2:00 PM',
+    recoveredAmount: '₹68,500',
+    successMessage: 'Promise-to-Pay locked. Reminder set for tomorrow.',
+    time: '11:40 AM'
+  }
+];
+
+const PIPELINE_NODES = [
+  {
+    id: 'ingest',
+    num: '01',
+    name: 'Ingest',
+    icon: Database,
+    colorClass: 'exact-node-blue',
+    sub: 'Failed payments across UPI, Cards, Invoices',
+    telemetry: '1,420 events/sec ingested via Razorpay Webhooks'
+  },
+  {
+    id: 'diagnose',
+    num: '02',
+    name: 'Diagnose',
+    icon: Search,
+    colorClass: 'exact-node-purple',
+    sub: 'Find the real reason for failure',
+    telemetry: '11+ Root Causes diagnosed with 99.4% confidence'
+  },
+  {
+    id: 'filter',
+    num: '03',
+    name: 'Filter',
+    icon: ShieldCheck,
+    colorClass: 'exact-node-teal',
+    sub: 'Block fraud, stay compliant',
+    telemetry: '100% Fraud blocked • Strict TRAI 9PM–9AM quiet hours'
+  },
+  {
+    id: 'engage',
+    num: '04',
+    name: 'Engage',
+    icon: Zap,
+    colorClass: 'exact-node-lavender',
+    sub: 'AI agents take the right action',
+    telemetry: 'Thompson Sampling MAB + Hinglish WhatsApp Agent'
+  },
+  {
+    id: 'recover',
+    num: '05',
+    name: 'Recover',
+    icon: BarChart2,
+    colorClass: 'exact-node-green',
+    sub: 'Settle payments with audit trails',
+    telemetry: '₹1.86 Cr settled with CFO net margin proof'
+  }
+];
+
 export default function LandingPage({ onRunBatch, generating }) {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
+
+  // Active interactive states
+  const [activeScenarioIdx, setActiveScenarioIdx] = useState(0);
+  const [isTyping, setIsTyping] = useState(false);
+  const [paidState, setPaidState] = useState(false);
+  const [chatStep, setChatStep] = useState(4); // 1: agent, 2: user, 3: card, 4: success
+  const [activePipelineIdx, setActivePipelineIdx] = useState(3); // Default 'Engage'
+
+  const currentScenario = SCENARIOS[activeScenarioIdx];
+
+  // Auto-switch scenario simulator animation when user clicks a pill
+  const handleSelectScenario = (idx) => {
+    if (idx === activeScenarioIdx && paidState) {
+      // Re-trigger animation
+      triggerScenarioAnimation(idx);
+      return;
+    }
+    triggerScenarioAnimation(idx);
+  };
+
+  const triggerScenarioAnimation = (idx) => {
+    setActiveScenarioIdx(idx);
+    setPaidState(false);
+    setChatStep(1);
+    setIsTyping(true);
+
+    setTimeout(() => {
+      setIsTyping(false);
+      setChatStep(2);
+      setTimeout(() => {
+        setChatStep(3);
+      }, 500);
+    }, 600);
+  };
+
+  const handlePayClick = (e) => {
+    e.stopPropagation();
+    setIsTyping(true);
+    setTimeout(() => {
+      setIsTyping(false);
+      setPaidState(true);
+      setChatStep(4);
+    }, 450);
+  };
 
   const handleRunBatch = () => {
     if (onRunBatch) {
@@ -24,6 +162,11 @@ export default function LandingPage({ onRunBatch, generating }) {
 
   return (
     <div className={`landing-exact-container ${theme}`} id="recovery-ai">
+      {/* Background Interactive Ambient Glows */}
+      <div className="ambient-glow glow-top-right"></div>
+      <div className="ambient-glow glow-mid-left"></div>
+      <div className="ambient-grid-overlay"></div>
+
       {/* ─── TOP NAVIGATION ────────────────────────────────────────── */}
       <nav className="exact-nav">
         {/* Brand Logo */}
@@ -54,18 +197,18 @@ export default function LandingPage({ onRunBatch, generating }) {
 
         {/* Center Nav Links */}
         <div className="exact-nav-center">
-          <a href="#product" className="exact-nav-link">Product</a>
+          <a href="#product" className="exact-nav-link" onClick={() => navigate('/dashboard')}>Live Engine</a>
           <a href="#how-it-works" className="exact-nav-link">How it works</a>
-          <a href="#use-cases" className="exact-nav-link">Use cases</a>
-          <a href="#pricing" className="exact-nav-link">Pricing</a>
-          <a href="#docs" className="exact-nav-link">Docs</a>
+          <a href="#mab" className="exact-nav-link" onClick={() => navigate('/mab-optimizer')}>MAB Optimizer</a>
+          <a href="#b2b" className="exact-nav-link" onClick={() => navigate('/b2b')}>B2B PTP</a>
+          <a href="#bank-radar" className="exact-nav-link" onClick={() => navigate('/bank-radar')}>Bank Radar</a>
         </div>
 
         {/* Right Actions */}
         <div className="exact-nav-right">
           <div className="exact-live-pill">
             <span className="exact-live-dot"></span>
-            <span>Live</span>
+            <span>Live Engine</span>
           </div>
 
           <button className="exact-theme-toggle" onClick={toggleTheme} type="button" aria-label="Toggle theme">
@@ -84,28 +227,29 @@ export default function LandingPage({ onRunBatch, generating }) {
         <div className="exact-hero-content">
           {/* Left Column */}
           <div className="exact-hero-left">
-            <div className="exact-eyebrow-pill">
-              <span>Built for Razorpay /buildathon 2026</span>
+            <div className="exact-eyebrow-pill animate-fade-in">
+              <span className="pill-pulse"></span>
+              <span>Razorpay /buildathon 2026 • Track 03: AI Revenue Recovery</span>
             </div>
 
-            <h1 className="exact-hero-title">
+            <h1 className="exact-hero-title animate-slide-up-1">
               Turn failed payments<br />
               <span className="exact-gradient-highlight">into real revenue.</span>
             </h1>
 
-            <p className="exact-hero-desc">
+            <p className="exact-hero-desc animate-slide-up-2">
               Autonomous AI agents that recover dropped payments across UPI, Cards
               and Invoices — compliantly, intelligently, at scale.
             </p>
 
-            <div className="exact-cta-row">
+            <div className="exact-cta-row animate-slide-up-3">
               <button
                 className="exact-btn-batch"
                 onClick={handleRunBatch}
                 disabled={generating}
                 type="button"
               >
-                <span>{generating ? 'Running Batch...' : 'Run Live Recovery Batch (300 Events)'}</span>
+                <span>{generating ? 'Processing Live Batch...' : 'Run Live Recovery Batch (300 Events)'}</span>
                 <ArrowRight size={16} />
               </button>
 
@@ -124,34 +268,64 @@ export default function LandingPage({ onRunBatch, generating }) {
               </button>
             </div>
 
+            {/* Quick Proof Badges */}
+            <div className="exact-hero-proof-bar animate-slide-up-4">
+              <div className="proof-pill">
+                <CheckCircle2 size={13} className="proof-icon-green" />
+                <span>Zero DND Violations</span>
+              </div>
+              <div className="proof-pill">
+                <CheckCircle2 size={13} className="proof-icon-green" />
+                <span>Max 5% Capped Incentives</span>
+              </div>
+              <div className="proof-pill">
+                <CheckCircle2 size={13} className="proof-icon-green" />
+                <span>₹50,000+ HITL Gate</span>
+              </div>
+            </div>
+
             <div className="exact-kicker">
               <span className="exact-kicker-line"></span>
               <span className="exact-kicker-text">AI WORKS WHILE YOU GROW</span>
             </div>
           </div>
 
-          {/* Right Column: Exact 3D Visual & Interactive WhatsApp Phone */}
+          {/* Right Column: Interactive WhatsApp Phone with Live Scenario Switcher */}
           <div className="exact-hero-right">
             {/* Top Right Script Tagline */}
             <div className="exact-tagline-top">
               Same<br />Customers.<br />More Revenue.
             </div>
 
+            {/* Scenario Switcher Tabs */}
+            <div className="exact-scenario-tabs">
+              {SCENARIOS.map((sc, i) => (
+                <button
+                  key={sc.id}
+                  className={`exact-sc-tab ${activeScenarioIdx === i ? 'active' : ''}`}
+                  onClick={() => handleSelectScenario(i)}
+                  type="button"
+                >
+                  <span>{sc.tag}</span>
+                </button>
+              ))}
+            </div>
+
             {/* Left Arc Floating Pills */}
             <div className="exact-arc-pills">
-              <div className="exact-arc-item">
+              <div className={`exact-arc-item ${activePipelineIdx === 0 ? 'active-arc' : ''}`} onClick={() => setActivePipelineIdx(0)}>
                 <span className="exact-arc-icon"><Database size={12} /></span>
                 <span>Identify</span>
               </div>
-              <div className="exact-arc-item">
+              <div className={`exact-arc-item ${activePipelineIdx === 1 ? 'active-arc' : ''}`} onClick={() => setActivePipelineIdx(1)}>
                 <span className="exact-arc-icon"><Search size={12} /></span>
                 <span>Understand</span>
               </div>
-              <div className="exact-arc-item active-arc">
+              <div className={`exact-arc-item ${activePipelineIdx === 3 ? 'active-arc' : ''}`} onClick={() => setActivePipelineIdx(3)}>
                 <span className="exact-arc-icon"><Zap size={12} /></span>
                 <span>Engage</span>
               </div>
-              <div className="exact-arc-item">
+              <div className={`exact-arc-item ${activePipelineIdx === 4 ? 'active-arc' : ''}`} onClick={() => setActivePipelineIdx(4)}>
                 <span className="exact-arc-icon"><TrendingUp size={12} /></span>
                 <span>Recover</span>
               </div>
@@ -177,48 +351,83 @@ export default function LandingPage({ onRunBatch, generating }) {
                         <span className="exact-wa-title">Recovery AI</span>
                         <span className="exact-wa-check">✓</span>
                       </div>
-                      <span className="exact-wa-sub">online</span>
+                      <span className="exact-wa-sub">
+                        {isTyping ? <span className="typing-text">typing...</span> : 'online • Razorpay Agent'}
+                      </span>
                     </div>
                   </div>
-                  <Search size={13} className="exact-wa-search" />
+                  <button className="exact-wa-replay" onClick={() => triggerScenarioAnimation(activeScenarioIdx)} title="Replay Demo">
+                    <RefreshCw size={12} />
+                  </button>
                 </div>
 
                 {/* WhatsApp Chat Stream */}
                 <div className="exact-wa-body">
-                  {/* Bubble 1 */}
-                  <div className="exact-bubble exact-bubble-agent">
-                    <p>Hi! Your payment of ₹2,499 to Zylo Retail is pending. Would you like to complete it now?</p>
-                    <span className="exact-bubble-time">10:24 AM</span>
-                  </div>
+                  {/* Bubble 1: Agent */}
+                  {chatStep >= 1 && (
+                    <div className="exact-bubble exact-bubble-agent animate-bubble">
+                      <p>{currentScenario.agentMessage}</p>
+                      <span className="exact-bubble-time">{currentScenario.time}</span>
+                    </div>
+                  )}
 
-                  {/* Bubble 2 */}
-                  <div className="exact-bubble exact-bubble-user">
-                    <p>Haan, bhejo UPI link</p>
-                    <span className="exact-bubble-time">10:24 AM <span className="exact-ticks">✓✓</span></span>
-                  </div>
+                  {/* Bubble 2: User */}
+                  {chatStep >= 2 && (
+                    <div className="exact-bubble exact-bubble-user animate-bubble">
+                      <p>{currentScenario.userMessage}</p>
+                      <span className="exact-bubble-time">{currentScenario.time} <span className="exact-ticks">✓✓</span></span>
+                    </div>
+                  )}
 
                   {/* Bubble 3: Payment Card */}
-                  <div className="exact-bubble exact-bubble-card">
-                    <span className="exact-card-head">Here's your secure payment link</span>
-                    <div className="exact-card-price">₹2,499</div>
-                    <button className="exact-pay-btn" onClick={handleGoToDashboard} type="button">
-                      <span>Pay Now</span>
-                      <span className="exact-upi-badge">UPI</span>
-                    </button>
-                    <span className="exact-bubble-time">10:24 AM</span>
-                  </div>
+                  {chatStep >= 3 && (
+                    <div className="exact-bubble exact-bubble-card animate-bubble">
+                      <span className="exact-card-head">{currentScenario.cardTitle}</span>
+                      <div className="exact-card-price">{currentScenario.amount}</div>
+                      
+                      {paidState ? (
+                        <div className="exact-card-paid-pill">
+                          <CheckCircle2 size={14} />
+                          <span>Paid via UPI AutoPay</span>
+                        </div>
+                      ) : (
+                        <button className="exact-pay-btn pulse-action" onClick={handlePayClick} type="button">
+                          <span>Pay Now</span>
+                          <span className="exact-upi-badge">1-TAP UPI</span>
+                        </button>
+                      )}
+                      
+                      <span className="exact-bubble-time">{currentScenario.time}</span>
+                    </div>
+                  )}
 
-                  {/* Bubble 4 */}
-                  <div className="exact-bubble exact-bubble-success">
-                    <p>Payment successful! Thanks for completing this.</p>
-                    <span className="exact-bubble-time">10:25 AM</span>
-                  </div>
+                  {/* Typing Indicator */}
+                  {isTyping && (
+                    <div className="exact-typing-indicator animate-fade-in">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+                  )}
+
+                  {/* Bubble 4: Success confirmation */}
+                  {paidState && chatStep >= 4 && (
+                    <div className="exact-bubble exact-bubble-success animate-bubble-pop">
+                      <div className="success-header">
+                        <CheckCircle2 size={14} className="success-icon" />
+                        <strong>{currentScenario.successMessage}</strong>
+                      </div>
+                      <span className="exact-bubble-time">Just now</span>
+                    </div>
+                  )}
                 </div>
 
                 {/* WhatsApp Input Bar */}
                 <div className="exact-wa-input-bar">
                   <div className="exact-input-mock">
-                    <span className="exact-input-placeholder">Message...</span>
+                    <span className="exact-input-placeholder">
+                      {paidState ? 'Payment settled in audit log...' : 'Type message to agent...'}
+                    </span>
                   </div>
                   <div className="exact-input-icons">
                     <span className="exact-icon-paperclip">
@@ -244,14 +453,14 @@ export default function LandingPage({ onRunBatch, generating }) {
             </div>
 
             {/* Right Floating Glass Card */}
-            <div className="exact-recovered-glass-card">
+            <div className={`exact-recovered-glass-card ${paidState ? 'celebrate' : ''}`}>
               <div className="exact-recovered-check">
                 <ShieldCheck size={16} />
               </div>
               <div className="exact-recovered-text">
-                <span className="exact-rc-sub">Recovered</span>
-                <span className="exact-rc-amount">₹2,499</span>
-                <span className="exact-rc-desc">Payment Successful</span>
+                <span className="exact-rc-sub">{paidState ? 'Recovered & Verified' : 'Live At-Risk'}</span>
+                <span className="exact-rc-amount">{currentScenario.recoveredAmount}</span>
+                <span className="exact-rc-desc">{paidState ? 'Settled in Batch' : 'Ready to Recover'}</span>
               </div>
             </div>
 
@@ -268,7 +477,7 @@ export default function LandingPage({ onRunBatch, generating }) {
       <section className="exact-metrics-section">
         <div className="exact-metrics-bar">
           {/* Metric 1 */}
-          <div className="exact-metric-item">
+          <div className="exact-metric-item" onClick={() => navigate('/dashboard')}>
             <div className="exact-m-icon exact-m-blue">
               <BarChart2 size={18} />
             </div>
@@ -277,14 +486,14 @@ export default function LandingPage({ onRunBatch, generating }) {
                 <span className="exact-m-number">₹12.4 Cr</span>
               </div>
               <span className="exact-m-label">Total At-Risk Analyzed</span>
-              <span className="exact-m-trend exact-trend-green">↑ +18%</span>
+              <span className="exact-m-trend exact-trend-green">↑ +18% MoM</span>
             </div>
           </div>
 
           <div className="exact-m-divider"></div>
 
           {/* Metric 2 */}
-          <div className="exact-metric-item">
+          <div className="exact-metric-item" onClick={() => navigate('/dashboard')}>
             <div className="exact-m-icon exact-m-purple">
               <Lock size={18} />
             </div>
@@ -293,14 +502,14 @@ export default function LandingPage({ onRunBatch, generating }) {
                 <span className="exact-m-number">₹1.86 Cr</span>
               </div>
               <span className="exact-m-label">Net Money Recovered</span>
-              <span className="exact-m-trend exact-trend-green">↑ +23%</span>
+              <span className="exact-m-trend exact-trend-green">↑ +23% Net Lift</span>
             </div>
           </div>
 
           <div className="exact-m-divider"></div>
 
           {/* Metric 3 */}
-          <div className="exact-metric-item">
+          <div className="exact-metric-item" onClick={() => navigate('/policies')}>
             <div className="exact-m-icon exact-m-teal">
               <ShieldCheck size={18} />
             </div>
@@ -309,14 +518,14 @@ export default function LandingPage({ onRunBatch, generating }) {
                 <span className="exact-m-number">99.7%</span>
               </div>
               <span className="exact-m-label">Compliance Score</span>
-              <span className="exact-m-trend exact-trend-green">↑ +0.3%</span>
+              <span className="exact-m-trend exact-trend-green">TRAI / DND Enforced</span>
             </div>
           </div>
 
           <div className="exact-m-divider"></div>
 
           {/* Metric 4 */}
-          <div className="exact-metric-item">
+          <div className="exact-metric-item" onClick={() => navigate('/audit')}>
             <div className="exact-m-icon exact-m-slate">
               <FileText size={18} />
             </div>
@@ -342,68 +551,47 @@ export default function LandingPage({ onRunBatch, generating }) {
               to recovery — <strong>autonomously.</strong>
             </h2>
             <p className="exact-hiw-desc">
-              A simple, powerful flow that works in the background, so you can focus on what's next.
+              A closed-loop, multi-layer intelligence pipeline that diagnoses root causes, enforces hard-coded guardrails, and executes zero-redirect recoveries.
             </p>
+            <div className="hiw-telemetry-badge">
+              <span className="pulse-dot"></span>
+              <span>{PIPELINE_NODES[activePipelineIdx].telemetry}</span>
+            </div>
             <button className="exact-btn-flow" onClick={() => navigate('/policies')} type="button">
-              <span>See the full flow</span>
+              <span>Inspect All 6 Intervention Policies</span>
               <ArrowRight size={14} />
             </button>
           </div>
 
-          {/* Right Side 5 Circular Nodes */}
+          {/* Right Side 5 Interactive Circular Nodes with Pulse Flow */}
           <div className="exact-hiw-right">
-            {/* 01 Ingest */}
-            <div className="exact-node-box">
-              <div className="exact-node-circle exact-node-blue">
-                <Database size={20} />
-              </div>
-              <h4 className="exact-node-name">Ingest</h4>
-              <p className="exact-node-sub">Failed payments across UPI, Cards, Invoices</p>
-            </div>
+            {PIPELINE_NODES.map((node, index) => {
+              const IconComp = node.icon;
+              const isActive = activePipelineIdx === index;
 
-            <span className="exact-node-arrow">→</span>
+              return (
+                <React.Fragment key={node.id}>
+                  <div
+                    className={`exact-node-box ${isActive ? 'active-node' : ''}`}
+                    onClick={() => setActivePipelineIdx(index)}
+                  >
+                    <div className={`exact-node-circle ${node.colorClass}`}>
+                      <IconComp size={20} />
+                      <span className="node-step-tag">{node.num}</span>
+                    </div>
+                    <h4 className="exact-node-name">{node.name}</h4>
+                    <p className="exact-node-sub">{node.sub}</p>
+                  </div>
 
-            {/* 02 Diagnose */}
-            <div className="exact-node-box">
-              <div className="exact-node-circle exact-node-purple">
-                <Search size={20} />
-              </div>
-              <h4 className="exact-node-name">Diagnose</h4>
-              <p className="exact-node-sub">Find the real reason for failure</p>
-            </div>
-
-            <span className="exact-node-arrow">→</span>
-
-            {/* 03 Filter */}
-            <div className="exact-node-box">
-              <div className="exact-node-circle exact-node-teal">
-                <ShieldCheck size={20} />
-              </div>
-              <h4 className="exact-node-name">Filter</h4>
-              <p className="exact-node-sub">Block fraud, stay compliant</p>
-            </div>
-
-            <span className="exact-node-arrow">→</span>
-
-            {/* 04 Engage */}
-            <div className="exact-node-box">
-              <div className="exact-node-circle exact-node-lavender">
-                <Zap size={20} />
-              </div>
-              <h4 className="exact-node-name">Engage</h4>
-              <p className="exact-node-sub">AI agents take the right action</p>
-            </div>
-
-            <span className="exact-node-arrow">→</span>
-
-            {/* 05 Recover */}
-            <div className="exact-node-box">
-              <div className="exact-node-circle exact-node-green">
-                <BarChart2 size={20} />
-              </div>
-              <h4 className="exact-node-name">Recover</h4>
-              <p className="exact-node-sub">Settle payments with audit trails</p>
-            </div>
+                  {index < PIPELINE_NODES.length - 1 && (
+                    <div className="exact-node-connector">
+                      <span className="connector-line"></span>
+                      <span className="connector-pulse"></span>
+                    </div>
+                  )}
+                </React.Fragment>
+              );
+            })}
           </div>
         </div>
       </section>
