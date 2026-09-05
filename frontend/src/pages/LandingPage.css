@@ -387,8 +387,8 @@
   z-index: 1;
 }
 
-/* Live Telemetry Ticker */
-.hero-top-ticker {
+/* Live Telemetry Ticker (Under Hero Metrics) */
+.hero-bottom-ticker {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -396,13 +396,15 @@
   border: 1px solid var(--border-subtle);
   padding: 5px 14px 5px 6px;
   border-radius: 9999px;
-  margin-bottom: 20px;
+  margin-top: 14px;
+  align-self: flex-start;
+  max-width: 100%;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   backdrop-filter: blur(12px);
   transition: all 0.2s ease;
 }
 
-.hero-top-ticker:hover {
+.hero-bottom-ticker:hover {
   border-color: var(--brand-accent);
   box-shadow: 0 4px 14px rgba(37, 99, 235, 0.12);
 }

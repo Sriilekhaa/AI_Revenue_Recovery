@@ -199,7 +199,6 @@ export default function LandingPage({ onRunBatch, generating }) {
   }, [activeScenarioIdx, autoPlay]);
 
   const handleSelectScenario = (idx) => {
-    setAutoPlay(false); // Switch to manual control when clicked
     setActiveScenarioIdx(idx);
     setPaidState(false);
     setCelebrating(false);
@@ -223,6 +222,12 @@ export default function LandingPage({ onRunBatch, generating }) {
       setPaidState(true);
       setCelebrating(true);
       setChatStep(4);
+
+      if (autoPlay) {
+        setTimeout(() => {
+          setActiveScenarioIdx((prev) => (prev + 1) % SCENARIOS.length);
+        }, 3200);
+      }
     }, 450);
   };
 
@@ -294,18 +299,6 @@ export default function LandingPage({ onRunBatch, generating }) {
 
       {/* ─── HERO SECTION ──────────────────────────────────────────── */}
       <section className="clean-hero">
-        {/* Live Event Stream Ticker Pill */}
-        <div className="hero-top-ticker animate-fade-down">
-          <div className="ticker-badge">
-            <Activity size={12} className="ticker-pulse-icon" />
-            <span>LIVE TELEMETRY</span>
-          </div>
-          <div className="ticker-content" key={LIVE_TICKER_EVENTS[tickerIdx].id}>
-            <span className="ticker-text">{LIVE_TICKER_EVENTS[tickerIdx].text}</span>
-            <span className="ticker-time">{LIVE_TICKER_EVENTS[tickerIdx].time}</span>
-          </div>
-        </div>
-
         <div className="clean-hero-grid">
           {/* Left Column: Value Proposition */}
           <div className="hero-left">
@@ -357,6 +350,18 @@ export default function LandingPage({ onRunBatch, generating }) {
               <div className="metric-pill">
                 <span className="mp-num">₹50k+</span>
                 <span className="mp-label">HITL Safety Gate</span>
+              </div>
+            </div>
+
+            {/* Live Event Stream Telemetry Ticker under metrics */}
+            <div className="hero-bottom-ticker animate-fade-up-4">
+              <div className="ticker-badge">
+                <Activity size={12} className="ticker-pulse-icon" />
+                <span>LIVE TELEMETRY</span>
+              </div>
+              <div className="ticker-content" key={LIVE_TICKER_EVENTS[tickerIdx].id}>
+                <span className="ticker-text">{LIVE_TICKER_EVENTS[tickerIdx].text}</span>
+                <span className="ticker-time">{LIVE_TICKER_EVENTS[tickerIdx].time}</span>
               </div>
             </div>
           </div>
