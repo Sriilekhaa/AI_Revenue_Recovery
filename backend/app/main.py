@@ -8,9 +8,25 @@ from app.routes import (
     batch, dashboard, audit, walkthrough, events, policies, agent_chat, b2b, sandbox, mab, economics
 )
 
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Auto-seed initial batch if database is empty
+    from app.database import db
+    from app.routes.batch import generate_and_run_batch, BatchRequest
+    if not db.get_all_batches():
+        try:
+            await generate_and_run_batch(BatchRequest(batch_size=300))
+        except Exception as e:
+            print(f"Startup batch seeding notice: {e}")
+    yield
+
+
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
+    lifespan=lifespan,
     description=(
         "AI-powered revenue recovery system for Razorpay /buildathon 2026. "
         "Detects payment failures, diagnoses root causes, selects optimal interventions, "
@@ -21,10 +37,11 @@ app = FastAPI(
 # CORS for React frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 # Register routers
