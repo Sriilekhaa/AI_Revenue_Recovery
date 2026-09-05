@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   BarChart3, Activity, FileText, Settings, HelpCircle,
-  LayoutDashboard, Layers, ShieldCheck, PlusCircle, MessageSquare, Building2, Radio, Cpu
+  LayoutDashboard, Layers, ShieldCheck, PlusCircle, MessageSquare, Building2, Radio, Cpu, Globe
 } from 'lucide-react';
 import './Sidebar.css';
 
 const NAV_ITEMS = [
-  { path: '/', label: 'Live Monitor', icon: Activity },
+  { path: '/dashboard', label: 'Live Monitor', icon: Activity },
   { path: '/mab-optimizer', label: 'MAB Optimizer', icon: Cpu },
   { path: '/agent-simulator', label: 'Hinglish Agent', icon: MessageSquare },
   { path: '/b2b', label: 'B2B & PTP Tracker', icon: Building2 },
@@ -18,6 +18,7 @@ const NAV_ITEMS = [
 ];
 
 const BOTTOM_ITEMS = [
+  { path: '/', label: 'Landing Page', icon: Globe },
   { path: '/settings', label: 'Settings', icon: Settings },
   { path: '/support', label: 'Support', icon: HelpCircle },
 ];

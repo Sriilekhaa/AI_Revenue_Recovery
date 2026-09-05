@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Search, Download, Bell, UserCircle, FlaskConical } from 'lucide-react';
+import { Search, Download, Bell, UserCircle, FlaskConical, Sun, Moon } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 import JudgeSandboxModal from './JudgeSandboxModal';
 import './TopBar.css';
 
@@ -8,6 +9,7 @@ export default function TopBar({ title, subtitle, onExportJSON, onExportCSV }) {
   const [isSandboxOpen, setIsSandboxOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <>
@@ -27,8 +29,8 @@ export default function TopBar({ title, subtitle, onExportJSON, onExportCSV }) {
 
           <nav className="topbar-nav">
             <button
-              className={`topbar-nav-item ${location.pathname === '/' ? 'active' : ''}`}
-              onClick={() => navigate('/')}
+              className={`topbar-nav-item ${location.pathname === '/dashboard' ? 'active' : ''}`}
+              onClick={() => navigate('/dashboard')}
             >
               Analytics
             </button>
@@ -55,6 +57,9 @@ export default function TopBar({ title, subtitle, onExportJSON, onExportCSV }) {
           <button className="topbar-export" onClick={onExportJSON}>
             <Download size={16} />
             <span>Download Audit<br />JSON/CSV</span>
+          </button>
+          <button className="topbar-icon-btn" onClick={toggleTheme} title="Toggle Theme">
+            {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
           </button>
           <button className="topbar-icon-btn">
             <Bell size={18} />
